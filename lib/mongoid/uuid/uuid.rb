@@ -1,3 +1,6 @@
+require 'bson'
+require 'moped'
+
 # encoding: utf-8
 module Mongoid # :nodoc:
   module Uuid #:nodoc:
@@ -5,7 +8,7 @@ module Mongoid # :nodoc:
       extend ActiveSupport::Concern
 
       included do
-        field :uuid
+        field :uuid, type: BSON::Binary, default: -> { BSON::Binary.new(SecureRandom.uuid, :uuid) }
         index({:uuid => 1}, {:unique => true})
         before_validation :generate_uuid
         validates :uuid, :uniqueness => true, :uuid => true
@@ -16,7 +19,7 @@ module Mongoid # :nodoc:
 
       # Sets unique UUID unless uuid is present.
       def generate_uuid
-        self.uuid = UUID.generate if uuid.to_s.empty?
+        self.uuid = BSON::Binary.new(SecureRandom.uuid, :uuid) if uuid.to_s.empty?
       end
     end
   end

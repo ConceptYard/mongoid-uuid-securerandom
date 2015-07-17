@@ -11,7 +11,9 @@ module Mongoid
     include Uuid
 
     def self.validate(uuid)
-      UUID.validate(uuid)
+      uuid.class.to_s == 'BSON::Binary' and
+        uuid.type == :uuid and
+        UUID.validate(uuid.data)
     end
 
   end

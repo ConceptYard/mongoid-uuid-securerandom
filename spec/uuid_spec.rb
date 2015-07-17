@@ -6,13 +6,19 @@ describe Mongoid::Uuid do
   describe "Create with uuid" do
     it "create with default uuid" do
       item = ItemWithUuid.create!(name: 'foo')
-      expect(item.uuid.length).to eq(36)
+      expect(item.uuid.data.length).to eq(36)
     end
 
     it "create with generated uuid" do
-      uuid = UUID.generate
+      uuid = BSON::Binary.new(SecureRandom.uuid, :uuid)
       item = ItemWithUuid.create!(name: 'foo', uuid: uuid)
       expect(item.uuid).to eq(uuid)
+    end
+
+    it "create with uuid with wrong type" do
+      uuid = SecureRandom.uuid
+      item = ItemWithUuid.create(name: 'foo', uuid: uuid)
+      expect(item.valid?).to eq(false)
     end
 
     it "create with invalid uuid exception" do
