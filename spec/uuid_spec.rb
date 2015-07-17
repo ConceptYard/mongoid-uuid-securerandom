@@ -1,7 +1,5 @@
 require "spec_helper"
 
-require "uuid"
-
 describe Mongoid::Uuid do
   describe "Create with uuid" do
     it "create with default uuid" do
