@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 gemspec
 
-gem "mongoid", ">= 3"
+gem 'mongoid', git: 'https://github.com/xzgyb/mongoid-for-rails5.git'
 gem "rake"
 
 group :test do
-  gem "rspec"
+  gem "rspec", '~> 3.5.0.beta2'
+  gem 'mongoid-rspec', '3.0.0'
 
   if ENV["CI"]
     gem "coveralls", require: false

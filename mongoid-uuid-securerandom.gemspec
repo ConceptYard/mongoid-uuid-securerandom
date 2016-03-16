@@ -20,9 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'yard'
   s.add_dependency 'rake'
-  s.add_dependency 'mongoid', '>= 5.0'
-  s.add_dependency 'rspec', '~> 3.0'
-  s.add_dependency 'mongoid-rspec', '~> 3.0.0'
+  s.add_dependency 'rspec', '~> 3.5.0.beta2'
 
   s.files = Dir.glob('lib/**/*')# + %w(CHANGELOG.md LICENSE README.md
   s.test_files = Dir.glob('spec/**/*')
